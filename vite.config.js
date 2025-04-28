@@ -7,10 +7,18 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    rollupOptions: {
+      external: ['wouter'],
+    },
   },
   server: {
     port: 3000,
   },
   root: 'client',
   publicDir: 'client/public',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './client/src'),
+    },
+  },
 }); 
