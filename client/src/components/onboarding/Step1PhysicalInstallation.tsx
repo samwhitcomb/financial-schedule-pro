@@ -33,6 +33,7 @@ export function Step1PhysicalInstallation() {
   const totalPages = 3;
   
   const handleContinue = () => {
+    // Show the account modal for login rather than proceeding directly
     setShowAccountModal(true);
   };
   
@@ -53,7 +54,7 @@ export function Step1PhysicalInstallation() {
     // Page 0: Overview and Requirements
     <div key="page0" className="fade-in">
       <p className="text-neutral-700 mb-4">
-        Before proceeding with the digital setup, ensure your GolfTrackPro launch monitor is physically installed.
+        Before proceeding with the digital setup, ensure your CLM PRO launch monitor is physically installed.
       </p>
       
       <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
@@ -301,7 +302,7 @@ export function Step1PhysicalInstallation() {
           className="bg-primary hover:bg-primary/90 text-white transition flex items-center"
           disabled={!installationReviewed}
         >
-          Continue
+          Sign In to Continue
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </div>

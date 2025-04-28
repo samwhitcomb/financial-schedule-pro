@@ -16,10 +16,23 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ArrowRight, Check, LinkIcon, User } from "lucide-react";
+import { 
+  ArrowRight, 
+  Check, 
+  LinkIcon, 
+  User, 
+  CreditCard, 
+  CalendarClock, 
+  Gift, 
+  X, 
+  ChevronRight
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/use-auth";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SubscriptionModal } from "@/components/modals/SubscriptionModal";
 
 const bindDeviceSchema = z.object({
   deviceNickname: z.string().min(1, "Device nickname is required"),
@@ -32,6 +45,9 @@ export function Step6BindDevice() {
   const { user } = useAuth();
   const [binding, setBinding] = useState(false);
   const [deviceBound, setDeviceBound] = useState(false);
+  const [trialActivated, setTrialActivated] = useState(false);
+  const [addPaymentMethod, setAddPaymentMethod] = useState(false);
+  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
 
   const form = useForm<z.infer<typeof bindDeviceSchema>>({
     resolver: zodResolver(bindDeviceSchema),
@@ -44,15 +60,48 @@ export function Step6BindDevice() {
   const onSubmit = (data: z.infer<typeof bindDeviceSchema>) => {
     setBinding(true);
     
-    // Simulate binding device to account
+    // Update device nickname with form data
     setTimeout(() => {
       setBinding(false);
-      setDeviceBound(true);
+      
+      // Show trial activation notice first instead of immediately binding
+      setTrialActivated(true);
+      
       toast({
-        title: "Device bound successfully",
-        description: `Your device "${data.deviceNickname}" has been securely linked to your account.`,
+        title: "Device verification successful",
+        description: `Your device "${data.deviceNickname}" is ready to be activated with a trial subscription.`,
       });
-    }, 2000);
+    }, 1500);
+  };
+  
+  const handleActivateTrial = () => {
+    if (addPaymentMethod) {
+      // If user wants to add payment info, show subscription modal
+      setShowSubscriptionModal(true);
+    } else {
+      // Otherwise directly activate the trial without payment info
+      toast({
+        title: "Free trial activated",
+        description: "Your 1-month free trial has been activated. No credit card required.",
+      });
+      
+      // Simulate finalizing device binding
+      setTimeout(() => {
+        setDeviceBound(true);
+      }, 1000);
+    }
+  };
+  
+  const handleSubscriptionComplete = () => {
+    setShowSubscriptionModal(false);
+    
+    toast({
+      title: "Payment method added",
+      description: "Your payment method has been saved and your trial is now active.",
+    });
+    
+    // Finalize device binding
+    setDeviceBound(true);
   };
 
   // Get display name for the account
@@ -90,7 +139,7 @@ export function Step6BindDevice() {
             <div className="space-y-3 text-sm text-neutral-600">
               <div className="flex justify-between">
                 <span>Device ID:</span>
-                <span className="font-mono">GolfTrackPro-A7F9</span>
+                <span className="font-mono">CLM-A7F9</span>
               </div>
               {form.getValues().location && (
                 <div className="flex justify-between">
@@ -110,6 +159,13 @@ export function Step6BindDevice() {
                 <span>Account Email:</span>
                 <span className="text-xs overflow-hidden text-ellipsis">{accountEmail}</span>
               </div>
+              <div className="flex justify-between border-t pt-2 mt-2">
+                <span>Subscription:</span>
+                <div className="flex items-center">
+                  <Gift className="w-3 h-3 mr-1 text-primary" />
+                  <span className="text-primary">Trial (1 month)</span>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -121,10 +177,125 @@ export function Step6BindDevice() {
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
+      ) : trialActivated ? (
+        <div className="fade-in">
+          <div className="mb-6">
+            <div className="flex items-center">
+              <CalendarClock className="h-6 w-6 text-primary mr-2" />
+              <h3 className="text-xl font-medium">Activate Your Free Trial</h3>
+            </div>
+            <p className="text-neutral-700 mt-2">
+              Your device is ready to be bound to your account. Activate your 1-month free trial to continue.
+            </p>
+          </div>
+          
+          <div className="bg-neutral-50 rounded-lg border p-6 mb-6">
+            <div className="flex flex-col md:flex-row gap-6">
+              {/* Device info */}
+              <div className="w-full md:w-1/2">
+                <h4 className="font-medium mb-3 flex items-center">
+                  <LinkIcon className="h-4 w-4 mr-2 text-neutral-600" />
+                  Device Information
+                </h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-neutral-600">Device ID:</span>
+                    <span className="font-mono">CLM-A7F9</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-neutral-600">Nickname:</span>
+                    <span>{form.getValues().deviceNickname}</span>
+                  </div>
+                  {form.getValues().location && (
+                    <div className="flex justify-between">
+                      <span className="text-neutral-600">Location:</span>
+                      <span>{form.getValues().location}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between border-t pt-2 mt-1">
+                    <span className="text-neutral-600">Owner:</span>
+                    <span className="font-medium">{accountName}</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Trial info */}
+              <div className="w-full md:w-1/2 border-t md:border-t-0 md:border-l pt-4 md:pt-0 md:pl-6">
+                <h4 className="font-medium mb-3 flex items-center">
+                  <Gift className="h-4 w-4 mr-2 text-primary" />
+                  Trial Information
+                </h4>
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center text-sm">
+                    <CalendarClock className="h-4 w-4 mr-2 text-primary" />
+                    <span>1-month free trial</span>
+                  </div>
+                  <div className="flex items-center text-sm">
+                    <Check className="h-4 w-4 mr-2 text-green-600" />
+                    <span>Full access to all features</span>
+                  </div>
+                  <div className="flex items-center text-sm">
+                    <Check className="h-4 w-4 mr-2 text-green-600" />
+                    <span>Cancel anytime</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-6">
+            <div className="flex">
+              <div className="mr-4">
+                <CreditCard className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h4 className="font-medium mb-1">Add Payment Method (Optional)</h4>
+                <p className="text-sm text-neutral-600 mb-3">
+                  Add your payment method now to enable auto-renewal after your trial ends. You won't be charged until your trial expires.
+                </p>
+                <div className="flex items-center">
+                  <Checkbox 
+                    id="add-payment"
+                    checked={addPaymentMethod}
+                    onCheckedChange={(checked) => setAddPaymentMethod(!!checked)}
+                    className="mr-2"
+                  />
+                  <label htmlFor="add-payment" className="text-sm cursor-pointer">
+                    Add payment method and enable auto-renewal
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-end">
+            <Button 
+              variant="outline" 
+              className="mr-3"
+              onClick={() => setTrialActivated(false)}
+            >
+              Back
+            </Button>
+            <Button 
+              onClick={handleActivateTrial}
+              className="bg-primary hover:bg-primary/90 text-white"
+            >
+              {addPaymentMethod ? "Continue to Payment" : "Activate Trial (No Credit Card)"}
+              <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+          
+          {showSubscriptionModal && (
+            <SubscriptionModal 
+              onClose={() => setShowSubscriptionModal(false)} 
+              onComplete={handleSubscriptionComplete}
+            />
+          )}
+        </div>
       ) : (
         <>
           <p className="text-neutral-700 mb-6">
-            Now let's secure your device to your account. This helps ensure that only you can access and control your GolfTrackPro launch monitor.
+            Now let's secure your device to your account. This helps ensure that only you can access and control your CLM PRO launch monitor.
           </p>
           
           {/* Account details card */}
