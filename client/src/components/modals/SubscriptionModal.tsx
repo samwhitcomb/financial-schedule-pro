@@ -138,7 +138,7 @@ export function SubscriptionModal({ onClose, onComplete }: SubscriptionModalProp
         <ConnectionModal
           onClose={() => setShowConnectionModal(false)}
           onComplete={handleConnectionComplete}
-          deviceName="GolfTrackPro-A7F9"
+          deviceName="CLM-A7F9"
         />
       )}
     </motion.div>

@@ -52,7 +52,7 @@ export function Step6BindDevice() {
   const form = useForm<z.infer<typeof bindDeviceSchema>>({
     resolver: zodResolver(bindDeviceSchema),
     defaultValues: {
-      deviceNickname: "My GolfTrackPro",
+      deviceNickname: "My CLM PRO",
       location: "",
     },
   });
@@ -369,7 +369,7 @@ export function Step6BindDevice() {
                     
                     {/* Text labels */}
                     <text x="90" y="170" fontSize="14" textAnchor="middle" fill="#6b7280">Your Account</text>
-                    <text x="170" y="170" fontSize="14" textAnchor="middle" fill="#6b7280">GolfTrackPro</text>
+                    <text x="170" y="170" fontSize="14" textAnchor="middle" fill="#6b7280">CLM PRO</text>
                   </svg>
                 </div>
               </div>
@@ -384,7 +384,7 @@ export function Step6BindDevice() {
                       <div>
                         <h5 className="font-medium text-sm text-blue-800 mb-1">Device Information</h5>
                         <p className="text-xs text-blue-700">
-                          Your device (GolfTrackPro-A7F9) is ready to be bound to your account. Binding your device helps secure it and ensures only you can access your data.
+                          Your device (CLM-A7F9) is ready to be bound to your account. Binding your device helps secure it and ensures only you can access your data.
                         </p>
                       </div>
                     </div>
@@ -397,7 +397,7 @@ export function Step6BindDevice() {
                       <FormItem>
                         <FormLabel>Device Nickname</FormLabel>
                         <FormControl>
-                          <Input placeholder="My GolfTrackPro" {...field} />
+                          <Input placeholder="My CLM PRO" {...field} />
                         </FormControl>
                         <FormDescription>
                           Choose a name for your device to identify it easily
