@@ -10,6 +10,7 @@
     "postinstall": "npm run build"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.0.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
     "cors": "^2.8.5",

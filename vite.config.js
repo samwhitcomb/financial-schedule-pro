@@ -8,7 +8,7 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     rollupOptions: {
-      external: ['wouter'],
+      external: ['wouter', '@tanstack/react-query'],
     },
   },
   server: {
