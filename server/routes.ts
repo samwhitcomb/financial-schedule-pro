@@ -1,9 +1,8 @@
 import type { Express } from "express";
-import { createServer, type Server } from "http";
 import { setupAuth } from "./auth";
 import { storage } from "./storage";
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export async function registerRoutes(app: Express): Promise<void> {
   // Set up authentication routes (/api/register, /api/login, /api/logout, /api/user)
   setupAuth(app);
 
@@ -69,8 +68,4 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(400).json({ message: (error as Error).message });
     }
   });
-
-  const httpServer = createServer(app);
-
-  return httpServer;
 }

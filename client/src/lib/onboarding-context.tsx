@@ -19,12 +19,14 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
   // Initialize step from user data if available
   useEffect(() => {
     if (user && user.currentStep) {
-      setCurrentStep(user.currentStep);
+      // Skip step 4 (account setup) if it's in the sequence
+      const adjustedStep = user.currentStep > 4 ? user.currentStep - 1 : user.currentStep;
+      setCurrentStep(adjustedStep);
     }
   }, [user]);
   
   const goToNextStep = () => {
-    if (currentStep < 9) {
+    if (currentStep < 8) { // Reduced from 9 to 8 steps
       setCurrentStep(currentStep + 1);
     }
   };
@@ -36,7 +38,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
   };
   
   const goToStep = (step: number) => {
-    if (step >= 1 && step <= 9) {
+    if (step >= 1 && step <= 8) { // Reduced from 9 to 8 steps
       setCurrentStep(step);
     }
   };

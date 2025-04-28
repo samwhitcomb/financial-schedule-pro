@@ -1,11 +1,11 @@
 import { useOnboarding } from "@/lib/onboarding-context";
-import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
 
 type StepInfo = {
   number: number;
   title: string;
   description: string;
-}
+};
 
 export function StepSidebar() {
   const { currentStep } = useOnboarding();
@@ -14,48 +14,47 @@ export function StepSidebar() {
     { number: 1, title: "Physical Installation", description: "Hardware setup" },
     { number: 2, title: "Installation & Wiring", description: "Mount and connect" },
     { number: 3, title: "Power On", description: "Activate device" },
-    { number: 4, title: "Account Setup", description: "Create or login" },
-    { number: 5, title: "Connect Device", description: "Link to app" },
-    { number: 6, title: "Bind Device", description: "Secure to account" },
-    { number: 7, title: "Firmware Update", description: "Install latest software" },
-    { number: 8, title: "Calibration", description: "Optimize accuracy" },
-    { number: 9, title: "Onboarding", description: "First use setup" },
+    { number: 4, title: "Connect Device", description: "Link to app" },
+    { number: 5, title: "Bind Device", description: "Secure to account" },
+    { number: 6, title: "Firmware Update", description: "Install latest software" },
+    { number: 7, title: "Calibration", description: "Optimize accuracy" },
+    { number: 8, title: "Onboarding", description: "First use setup" },
   ];
-
+  
   return (
-    <div className="w-full md:w-1/3 mb-6 md:mb-0">
-      <div className="bg-white rounded-lg shadow-sm p-4">
-        <h3 className="font-medium text-lg mb-4">Setup Steps</h3>
-        
-        <div className="step-progress">
+    <div className="w-full md:w-1/3">
+      <div className="bg-white rounded-lg shadow-sm p-6">
+        <h3 className="text-lg font-semibold mb-4">Setup Steps</h3>
+        <div className="space-y-4">
           {steps.map((step) => (
-            <div 
+            <div
               key={step.number}
-              className={cn(
-                "flex items-start mb-6",
-                step.number === currentStep && "step-current",
-                step.number < currentStep && "step-complete"
-              )}
-              data-step={step.number}
+              className={`flex items-start gap-3 p-3 rounded-lg transition-colors ${
+                currentStep === step.number
+                  ? "bg-primary/10 text-primary"
+                  : currentStep > step.number
+                  ? "text-neutral-600"
+                  : "text-neutral-400"
+              }`}
             >
-              <div 
-                className={cn(
-                  "step-icon w-8 h-8 rounded-full border-2 flex items-center justify-center mr-3",
-                  step.number === currentStep 
-                    ? "border-primary" 
-                    : "border-neutral-300"
-                )}
+              <div
+                className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm ${
+                  currentStep === step.number
+                    ? "bg-primary text-white"
+                    : currentStep > step.number
+                    ? "bg-green-500 text-white"
+                    : "bg-neutral-200 text-neutral-400"
+                }`}
               >
-                <span>{step.number}</span>
+                {currentStep > step.number ? (
+                  <Check className="w-4 h-4" />
+                ) : (
+                  step.number
+                )}
               </div>
               <div>
-                <h4 className={cn(
-                  "font-medium",
-                  step.number !== currentStep && "text-neutral-600"
-                )}>
-                  {step.title}
-                </h4>
-                <p className="text-sm text-neutral-500">{step.description}</p>
+                <div className="font-medium">{step.title}</div>
+                <div className="text-sm">{step.description}</div>
               </div>
             </div>
           ))}

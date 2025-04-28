@@ -5,7 +5,6 @@ import { StepSidebar } from "@/components/onboarding/StepSidebar";
 import { Step1PhysicalInstallation } from "@/components/onboarding/Step1PhysicalInstallation";
 import { Step2Installation } from "@/components/onboarding/Step2Installation";
 import { Step3PowerOn } from "@/components/onboarding/Step3PowerOn";
-import { Step4Account } from "@/components/onboarding/Step4Account";
 import { Step5ConnectDevice } from "@/components/onboarding/Step5ConnectDevice";
 import { Step6BindDevice } from "@/components/onboarding/Step6BindDevice";
 import { Step7Firmware } from "@/components/onboarding/Step7Firmware";
@@ -17,7 +16,7 @@ export default function OnboardingPage() {
   const { currentStep } = useOnboarding();
   
   // Calculate progress percentage
-  const progressPercentage = Math.round((currentStep / 9) * 100);
+  const progressPercentage = Math.round((currentStep / 8) * 100); // Adjusted for 8 steps
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -53,12 +52,11 @@ export default function OnboardingPage() {
               {currentStep === 1 && <Step1PhysicalInstallation />}
               {currentStep === 2 && <Step2Installation />}
               {currentStep === 3 && <Step3PowerOn />}
-              {currentStep === 4 && <Step4Account />}
-              {currentStep === 5 && <Step5ConnectDevice />}
-              {currentStep === 6 && <Step6BindDevice />}
-              {currentStep === 7 && <Step7Firmware />}
-              {currentStep === 8 && <Step8Calibration />}
-              {currentStep === 9 && <Step9Onboarding />}
+              {currentStep === 4 && <Step5ConnectDevice />}
+              {currentStep === 5 && <Step6BindDevice />}
+              {currentStep === 6 && <Step7Firmware />}
+              {currentStep === 7 && <Step8Calibration />}
+              {currentStep === 8 && <Step9Onboarding />}
             </div>
           </div>
         </div>

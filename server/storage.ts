@@ -1,8 +1,5 @@
-import { users, devices, type User, type InsertUser, type Device, type InsertDevice } from "@shared/schema";
-import session from "express-session";
-import createMemoryStore from "memorystore";
-
-const MemoryStore = createMemoryStore(session);
+import { users, devices, type User, type InsertUser, type Device, type InsertDevice } from "./schema";
+import Redis from "ioredis";
 
 // Storage interface
 export interface IStorage {
@@ -19,9 +16,6 @@ export interface IStorage {
   getDevice(id: number): Promise<Device | undefined>;
   getDevicesByUserId(userId: number): Promise<Device[]>;
   updateDevice(id: number, updates: Partial<Device>): Promise<Device>;
-  
-  // Session store
-  sessionStore: session.SessionStore;
 }
 
 export class MemStorage implements IStorage {
@@ -29,16 +23,12 @@ export class MemStorage implements IStorage {
   private devices: Map<number, Device>;
   currentUserId: number;
   currentDeviceId: number;
-  sessionStore: session.SessionStore;
 
   constructor() {
     this.users = new Map();
     this.devices = new Map();
     this.currentUserId = 1;
     this.currentDeviceId = 1;
-    this.sessionStore = new MemoryStore({
-      checkPeriod: 86400000, // 24 hours
-    });
   }
 
   // User methods
@@ -59,19 +49,29 @@ export class MemStorage implements IStorage {
   }
 
   async createUser(insertUser: InsertUser & { trialStartDate?: Date; trialEndDate?: Date; trialActive?: boolean }): Promise<User> {
-    const id = this.currentUserId++;
-    const now = new Date();
-    const user: User = { 
-      ...insertUser, 
-      id, 
-      currentStep: 1,
-      trialActive: insertUser.trialActive ?? true,
-      trialStartDate: insertUser.trialStartDate ?? now,
-      trialEndDate: insertUser.trialEndDate ?? new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000),
-      paymentAdded: false,
-    };
-    this.users.set(id, user);
-    return user;
+    try {
+      const id = this.currentUserId++;
+      const now = new Date();
+      const user: User = { 
+        id, 
+        username: insertUser.username,
+        password: insertUser.password,
+        email: insertUser.email,
+        fullName: insertUser.fullName || null,
+        receiveUpdates: insertUser.receiveUpdates || null,
+        currentStep: 1,
+        trialActive: insertUser.trialActive ?? true,
+        trialStartDate: insertUser.trialStartDate ?? now,
+        trialEndDate: insertUser.trialEndDate ?? new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000),
+        paymentAdded: false,
+      };
+
+      this.users.set(id, user);
+      return user;
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
   }
 
   async updateUserStep(userId: number, currentStep: number): Promise<User> {
@@ -100,11 +100,16 @@ export class MemStorage implements IStorage {
   async createDevice(insertDevice: InsertDevice): Promise<Device> {
     const id = this.currentDeviceId++;
     const device: Device = { 
-      ...insertDevice, 
       id,
+      userId: insertDevice.userId || null,
+      deviceName: insertDevice.deviceName || null,
+      deviceId: insertDevice.deviceId,
+      firmwareVersion: insertDevice.firmwareVersion || null,
       connected: false,
       calibrated: false,
+      ceilingHeight: null,
     };
+
     this.devices.set(id, device);
     return device;
   }
