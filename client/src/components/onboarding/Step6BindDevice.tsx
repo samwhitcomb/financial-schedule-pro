@@ -16,9 +16,10 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ArrowRight, Check, LinkIcon } from "lucide-react";
+import { ArrowRight, Check, LinkIcon, User } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/use-auth";
 
 const bindDeviceSchema = z.object({
   deviceNickname: z.string().min(1, "Device nickname is required"),
@@ -28,6 +29,7 @@ const bindDeviceSchema = z.object({
 export function Step6BindDevice() {
   const { goToNextStep } = useOnboarding();
   const { toast } = useToast();
+  const { user } = useAuth();
   const [binding, setBinding] = useState(false);
   const [deviceBound, setDeviceBound] = useState(false);
 
@@ -53,6 +55,10 @@ export function Step6BindDevice() {
     }, 2000);
   };
 
+  // Get display name for the account
+  const accountName = user?.fullName || user?.username || 'Unknown User';
+  const accountEmail = user?.email || 'No email available';
+  
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 fade-in">
       <div className="flex items-center justify-between mb-6">
@@ -98,7 +104,11 @@ export function Step6BindDevice() {
               </div>
               <div className="flex justify-between">
                 <span>Owner:</span>
-                <span>Your Account</span>
+                <span className="font-medium">{accountName}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Account Email:</span>
+                <span className="text-xs overflow-hidden text-ellipsis">{accountEmail}</span>
               </div>
             </div>
           </div>
@@ -117,6 +127,23 @@ export function Step6BindDevice() {
             Now let's secure your device to your account. This helps ensure that only you can access and control your GolfTrackPro launch monitor.
           </p>
           
+          {/* Account details card */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <h4 className="text-blue-800 font-medium text-sm flex items-center mb-2">
+              <User className="h-4 w-4 mr-2" />
+              You're binding this device to:
+            </h4>
+            <div className="flex justify-between items-center">
+              <div>
+                <div className="font-medium text-blue-900">{accountName}</div>
+                <div className="text-xs text-blue-700">{accountEmail}</div>
+              </div>
+              <div className="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded-full">
+                Active Account
+              </div>
+            </div>
+          </div>
+          
           <div className="flex flex-col md:flex-row gap-8 mb-8">
             <div className="w-full md:w-1/2">
               <div className="bg-neutral-100 rounded-lg p-6 h-full">
@@ -132,6 +159,9 @@ export function Step6BindDevice() {
                     <circle cx="90" cy="120" r="40" fill="#e5e7eb" />
                     <circle cx="90" cy="105" r="15" fill="#9ca3af" />
                     <path d="M65,140 C65,125 80,120 90,120 C100,120 115,125 115,140" fill="#9ca3af" />
+                    
+                    {/* User name */}
+                    <text x="90" y="70" fontSize="12" textAnchor="middle" fill="#374151" fontWeight="bold">{accountName}</text>
                     
                     {/* Device icon */}
                     <rect x="150" y="100" width="40" height="40" rx="5" fill="#1a8754" />
@@ -228,7 +258,7 @@ export function Step6BindDevice() {
                     className="bg-primary hover:bg-primary/90 text-white w-full"
                     disabled={binding}
                   >
-                    {binding ? "Binding Device..." : "Bind Device"}
+                    {binding ? `Binding to ${accountName}'s Account...` : `Bind to ${accountName}'s Account`}
                   </Button>
                 </form>
               </Form>
