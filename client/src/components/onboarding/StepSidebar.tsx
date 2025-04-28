@@ -11,7 +11,7 @@ export function StepSidebar() {
   const { currentStep } = useOnboarding();
   
   const steps: StepInfo[] = [
-    { number: 1, title: "Download App", description: "Setup interface" },
+    { number: 1, title: "Physical Installation", description: "Hardware setup" },
     { number: 2, title: "Installation & Wiring", description: "Mount and connect" },
     { number: 3, title: "Power On", description: "Activate device" },
     { number: 4, title: "Account Setup", description: "Create or login" },

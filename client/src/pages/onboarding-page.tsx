@@ -2,7 +2,7 @@ import { useOnboarding } from "@/lib/onboarding-context";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StepSidebar } from "@/components/onboarding/StepSidebar";
-import { Step1DownloadApp } from "@/components/onboarding/Step1DownloadApp";
+import { Step1PhysicalInstallation } from "@/components/onboarding/Step1DownloadApp";
 import { Step2Installation } from "@/components/onboarding/Step2Installation";
 import { Step3PowerOn } from "@/components/onboarding/Step3PowerOn";
 import { Step4Account } from "@/components/onboarding/Step4Account";
@@ -50,7 +50,7 @@ export default function OnboardingPage() {
             
             {/* Right Side: Current Step Content */}
             <div className="w-full md:w-2/3">
-              {currentStep === 1 && <Step1DownloadApp />}
+              {currentStep === 1 && <Step1PhysicalInstallation />}
               {currentStep === 2 && <Step2Installation />}
               {currentStep === 3 && <Step3PowerOn />}
               {currentStep === 4 && <Step4Account />}
