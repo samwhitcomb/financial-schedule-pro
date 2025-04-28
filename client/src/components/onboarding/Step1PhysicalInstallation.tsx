@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useOnboarding } from "@/lib/onboarding-context";
+import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { AccountModal } from "@/components/modals/AccountModal";
@@ -25,6 +26,7 @@ import { motion } from "framer-motion";
 
 export function Step1PhysicalInstallation() {
   const { goToNextStep } = useOnboarding();
+  const { user } = useAuth();
   const [installationReviewed, setInstallationReviewed] = useState(false);
   const [showAccountModal, setShowAccountModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -33,8 +35,13 @@ export function Step1PhysicalInstallation() {
   const totalPages = 3;
   
   const handleContinue = () => {
-    // Show the account modal for login rather than proceeding directly
-    setShowAccountModal(true);
+    // If user is already signed in, go directly to next step
+    if (user) {
+      goToNextStep();
+    } else {
+      // Otherwise show the account modal for login
+      setShowAccountModal(true);
+    }
   };
   
   const nextPage = () => {
@@ -302,7 +309,7 @@ export function Step1PhysicalInstallation() {
           className="bg-primary hover:bg-primary/90 text-white transition flex items-center"
           disabled={!installationReviewed}
         >
-          Sign In to Continue
+          Continue to Next Step
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </div>
