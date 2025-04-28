@@ -146,7 +146,7 @@ export function Step4Account() {
       </div>
       
       <p className="text-neutral-700 mb-6">
-        Create an account to enable cloud syncing, personalized settings, and access to all features of your GolfTrackPro launch monitor.
+        Create an account to enable cloud syncing, personalized settings, and access to all features of your CLM PRO launch monitor.
       </p>
 
       <div className="md:w-4/5 mx-auto">
@@ -164,7 +164,7 @@ export function Step4Account() {
                   <span>Create Your Account</span>
                 </CardTitle>
                 <CardDescription>
-                  Get started with your GolfTrackPro device
+                  Get started with your CLM PRO device
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -262,7 +262,7 @@ export function Step4Account() {
               <CardHeader>
                 <CardTitle>Log In</CardTitle>
                 <CardDescription>
-                  Access your existing GolfTrackPro account
+                  Access your existing CLM PRO account
                 </CardDescription>
               </CardHeader>
               <CardContent>

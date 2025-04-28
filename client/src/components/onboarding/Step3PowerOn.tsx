@@ -214,11 +214,11 @@ export function Step3PowerOn() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
               >
-                <Alert variant="success" className="bg-green-50 border-green-200">
+                <Alert className="bg-green-50 border-green-200">
                   <Check className="h-4 w-4 text-green-600" />
                   <AlertTitle>Device activated successfully</AlertTitle>
                   <AlertDescription>
-                    Your GolfTrackPro launch monitor is powered on and connected to your network.
+                    Your CLM PRO launch monitor is powered on and connected to your network.
                   </AlertDescription>
                 </Alert>
               </motion.div>

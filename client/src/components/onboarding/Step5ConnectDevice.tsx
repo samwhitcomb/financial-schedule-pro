@@ -20,7 +20,7 @@ export function Step5ConnectDevice() {
     setFoundDevices([]);
     
     setTimeout(() => {
-      setFoundDevices(["GolfTrackPro-A7F9", "GolfTrackPro-B123"]);
+      setFoundDevices(["CLM-PRO-A7F9", "CLM-PRO-B123"]);
       setSearchingDevices(false);
     }, 3000);
   };
@@ -59,7 +59,7 @@ export function Step5ConnectDevice() {
           
           <h3 className="text-xl font-medium text-center mb-2">Device Connected Successfully</h3>
           <p className="text-neutral-600 text-center mb-6">
-            Your GolfTrackPro launch monitor is now connected to the app. You can now proceed to the next step.
+            Your CLM PRO launch monitor is now connected to the app. You can now proceed to the next step.
           </p>
           
           <div className="bg-neutral-100 p-4 rounded-lg max-w-md">
@@ -68,7 +68,7 @@ export function Step5ConnectDevice() {
                 <Wifi className="h-3 w-3 text-white" />
               </div>
               <div>
-                <h5 className="font-medium">GolfTrackPro-A7F9</h5>
+                <h5 className="font-medium">CLM-PRO-A7F9</h5>
                 <p className="text-xs text-neutral-500">Connected via Ethernet</p>
               </div>
             </div>
