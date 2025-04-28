@@ -2,7 +2,7 @@ services:
   - type: web
     name: financial-schedule-pro
     env: node
-    buildCommand: npm install
+    buildCommand: npm install && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
