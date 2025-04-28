@@ -2,7 +2,7 @@ import { useOnboarding } from "@/lib/onboarding-context";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StepSidebar } from "@/components/onboarding/StepSidebar";
-import { Step1PhysicalInstallation } from "@/components/onboarding/Step1DownloadApp";
+import { Step1PhysicalInstallation } from "@/components/onboarding/Step1PhysicalInstallation";
 import { Step2Installation } from "@/components/onboarding/Step2Installation";
 import { Step3PowerOn } from "@/components/onboarding/Step3PowerOn";
 import { Step4Account } from "@/components/onboarding/Step4Account";
