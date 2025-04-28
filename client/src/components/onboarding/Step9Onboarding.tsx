@@ -19,7 +19,7 @@ import {
   Check, 
   ArrowRight, 
   Settings, 
-  Club, 
+  Radio, 
   BarChart, 
   Gamepad2, 
   Trophy, 
@@ -93,7 +93,7 @@ export function Step9Onboarding() {
           
           <h3 className="text-2xl font-medium text-center mb-2">Setup Complete!</h3>
           <p className="text-neutral-600 text-center max-w-md mb-8">
-            Congratulations! Your GolfTrackPro launch monitor is now set up and ready to use.
+            Congratulations! Your CLM PRO launch monitor is now set up and ready to use.
             You can start analyzing your golf swing right away.
           </p>
           
@@ -144,7 +144,7 @@ export function Step9Onboarding() {
       ) : (
         <>
           <p className="text-neutral-700 mb-6">
-            Let's get you familiar with the key features of your GolfTrackPro launch monitor and prepare for your first use.
+            Let's get you familiar with the key features of your CLM PRO launch monitor and prepare for your first use.
           </p>
           
           <Tabs defaultValue="features" className="w-full mb-8">
@@ -247,7 +247,7 @@ export function Step9Onboarding() {
               <Card>
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center">
-                    <Club className="h-5 w-5 mr-2 text-primary" />
+                    <Radio className="h-5 w-5 mr-2 text-primary" />
                     Quick Start Guide
                   </CardTitle>
                   <CardDescription>
@@ -306,7 +306,7 @@ export function Step9Onboarding() {
                     
                     <div className="bg-primary/5 p-4 rounded-lg mt-6">
                       <h5 className="font-medium flex items-center mb-2">
-                        <Club className="h-4 w-4 text-primary mr-2" />
+                        <Radio className="h-4 w-4 text-primary mr-2" />
                         Pro Tip
                       </h5>
                       <p className="text-sm text-neutral-700">

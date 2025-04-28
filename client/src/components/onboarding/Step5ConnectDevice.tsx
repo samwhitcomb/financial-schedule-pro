@@ -147,7 +147,7 @@ export function Step5ConnectDevice() {
                     <WifiOff className="h-12 w-12 text-neutral-400 mb-3" />
                     <h5 className="font-medium mb-1 text-neutral-700">No Devices Found</h5>
                     <p className="text-center text-neutral-500 text-sm mb-4">
-                      We couldn't find any GolfTrackPro devices on your network.
+                      We couldn't find any CLM PRO devices on your network.
                     </p>
                     <Button 
                       variant="outline" 
@@ -223,7 +223,7 @@ export function Step5ConnectDevice() {
         <ConnectionModal
           onClose={() => setShowConnectionModal(false)}
           onComplete={handleConnectionComplete}
-          deviceName="GolfTrackPro-A7F9"
+          deviceName="CLM-PRO-A7F9"
         />
       )}
     </div>
