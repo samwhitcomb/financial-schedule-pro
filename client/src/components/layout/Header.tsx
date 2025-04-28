@@ -1,7 +1,7 @@
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Club, HeadphonesIcon } from "lucide-react";
+import { Radio, HeadphonesIcon } from "lucide-react";
 
 export function Header() {
   const { user, logoutMutation } = useAuth();
@@ -14,8 +14,8 @@ export function Header() {
     <header className="bg-white shadow-sm py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center">
-          <Club className="text-primary text-2xl h-6 w-6 mr-2" />
-          <h1 className="text-xl font-semibold">GolfTrackPro</h1>
+          <Radio className="text-primary text-2xl h-6 w-6 mr-2" />
+          <h1 className="text-xl font-semibold">CLM PRO</h1>
         </div>
         <div className="hidden md:flex items-center space-x-4">
           {user && (

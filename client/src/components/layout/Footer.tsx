@@ -1,4 +1,4 @@
-import { Club, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { Radio, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
 import { Link } from "wouter";
 
 export function Footer() {
@@ -8,8 +8,8 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-6 md:mb-0">
             <div className="flex items-center">
-              <Club className="text-white h-6 w-6 mr-2" />
-              <h2 className="text-lg font-semibold">GolfTrackPro</h2>
+              <Radio className="text-white h-6 w-6 mr-2" />
+              <h2 className="text-lg font-semibold">CLM PRO</h2>
             </div>
             <p className="text-neutral-400 text-sm mt-2">Advanced swing analysis technology</p>
           </div>
@@ -54,7 +54,7 @@ export function Footer() {
         </div>
         
         <div className="border-t border-neutral-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-neutral-500 text-sm mb-4 md:mb-0">© {new Date().getFullYear()} GolfTrackPro. All rights reserved.</p>
+          <p className="text-neutral-500 text-sm mb-4 md:mb-0">© {new Date().getFullYear()} CLM PRO. All rights reserved.</p>
           <div className="flex space-x-6">
             <Link href="#" className="text-neutral-500 hover:text-white text-sm">Terms of Service</Link>
             <Link href="#" className="text-neutral-500 hover:text-white text-sm">Privacy Policy</Link>
